@@ -2,7 +2,7 @@
 
 namespace CleanArchitecture\Domain;
 
-use Exception;
+use CleanArchitecture\Domain\Exceptions\NegativeProductPriceException;
 
 class Product
 {
@@ -12,7 +12,9 @@ class Product
     public function __construct(string $name, int $amountInCents)
     {
         if ($amountInCents < 0) {
-            throw new Exception('Price of the product cannot be less than 0.');
+            throw new NegativeProductPriceException(
+                "Product '$name' has a negative price: '$amountInCents'."
+            );
         }
 
         $this->name = $name;

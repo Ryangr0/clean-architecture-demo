@@ -15,7 +15,7 @@ class Sale
         $this->products = $products;
     }
 
-    public function getSubTotal(): int
+    public function subTotal(): int
     {
         return array_reduce(
             $this->products,
