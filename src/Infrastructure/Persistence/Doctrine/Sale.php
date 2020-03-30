@@ -1,11 +1,13 @@
 <?php
 
+namespace CleanArchitecture\Infrastructure\Persistence\Doctrine;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
  */
-class DoctrineSale
+class Sale
 {
     /** @ORM\Column(type="string") */
     private string $id;
@@ -19,5 +21,14 @@ class DoctrineSale
         $this->id = $id;
         $this->customerId = $customerId;
         $this->subTotal = $subTotal;
+    }
+
+    public static function fromSale(\CleanArchitecture\Domain\Models\Sale $sale)
+    {
+        return new self(
+            $sale->id(),
+            $sale->customerId(),
+            $sale->subTotal()
+        );
     }
 }

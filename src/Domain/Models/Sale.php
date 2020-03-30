@@ -33,4 +33,19 @@ class Sale
             }
         );
     }
+
+    public function id(): string
+    {
+        return $this->id;
+    }
+
+    public function customerId(): string
+    {
+        return $this->customerId;
+    }
+
+    public function products(): array
+    {
+        return $this->products;
+    }
 }
