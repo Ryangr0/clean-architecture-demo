@@ -2,6 +2,8 @@
 
 namespace CleanArchitecture\Domain\Models;
 
+use CleanArchitecture\Domain\Exceptions\SaleHasNoProductsException;
+
 class Sale
 {
     private string $customerId;
@@ -11,6 +13,10 @@ class Sale
 
     public function __construct(string $customerId, array $products)
     {
+        if (empty($products)) {
+            throw new SaleHasNoProductsException("Sale for customerId '$customerId' has no products.");
+        }
+
         $this->customerId = $customerId;
         $this->products = $products;
     }

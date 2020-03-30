@@ -4,6 +4,6 @@ namespace CleanArchitecture\Domain\Exceptions;
 
 use Exception;
 
-class NegativeProductPriceException extends Exception
+class SaleHasNoProductsException extends Exception
 {
 }
