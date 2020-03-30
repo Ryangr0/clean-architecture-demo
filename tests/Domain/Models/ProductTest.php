@@ -1,9 +1,9 @@
 <?php
 
-namespace CleanArchitecture\Tests\Domain;
+namespace CleanArchitecture\Tests\Domain\Models;
 
 use CleanArchitecture\Domain\Exceptions\NegativeProductPriceException;
-use CleanArchitecture\Domain\Product;
+use CleanArchitecture\Domain\Models\Product;
 use PHPUnit\Framework\TestCase;
 
 class ProductTest extends TestCase

@@ -1,9 +1,9 @@
 <?php
 
-namespace CleanArchitecture\Tests\Domain;
+namespace CleanArchitecture\Tests\Domain\Models;
 
-use CleanArchitecture\Domain\Product;
-use CleanArchitecture\Domain\Sale;
+use CleanArchitecture\Domain\Models\Product;
+use CleanArchitecture\Domain\Models\Sale;
 use PHPUnit\Framework\TestCase;
 
 class SaleTest extends TestCase
