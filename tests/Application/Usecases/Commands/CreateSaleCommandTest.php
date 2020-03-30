@@ -7,6 +7,8 @@ use CleanArchitecture\Application\Usecases\Repositories\SaleRepository;
 use CleanArchitecture\Domain\Models\Product;
 use CleanArchitecture\Domain\Models\Sale;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
+use Ramsey\Uuid\Uuid;
 
 class CreateSaleCommandTest extends TestCase
 {
@@ -32,23 +34,21 @@ class CreateSaleCommandTest extends TestCase
         $this->inventoryService = $this->prophesize(InventoryService::class);
         $this->command = new CreateSaleCommand($this->saleRepository->reveal(), $this->inventoryService->reveal());
 
-        $this->customerId = 'customerId';
+        $this->customerId = Uuid::uuid4();
         $this->product = $this->prophesize(Product::class);
         $this->product->amountInCents()->willReturn(599);
     }
 
     public function test_command_will_save_to_repository()
     {
-        $expectedSaleToBeSaved = new Sale($this->customerId, [$this->product->reveal()]);
-        $this->saleRepository->save($expectedSaleToBeSaved)->shouldBeCalledOnce();
+        $this->saleRepository->save(Argument::type(Sale::class))->shouldBeCalledOnce();
 
         $this->command->execute($this->customerId, [$this->product->reveal()]);
     }
 
     public function test_command_will_notify_the_inventory_service_after_saving()
     {
-        $expectedSaleToBeSent = new Sale($this->customerId, [$this->product->reveal()]);
-        $this->inventoryService->saleWasMade($expectedSaleToBeSent)->shouldBeCalledOnce();
+        $this->inventoryService->saleWasMade(Argument::type(Sale::class))->shouldBeCalledOnce();
 
         $this->command->execute($this->customerId, [$this->product->reveal()]);
     }

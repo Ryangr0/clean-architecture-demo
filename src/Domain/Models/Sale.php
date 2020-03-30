@@ -6,17 +6,19 @@ use CleanArchitecture\Domain\Exceptions\SaleHasNoProductsException;
 
 class Sale
 {
+    private string $id;
     private string $customerId;
 
     /** @var Product[] */
     private array $products;
 
-    public function __construct(string $customerId, array $products)
+    public function __construct(string $id, string $customerId, array $products)
     {
         if (empty($products)) {
             throw new SaleHasNoProductsException("Sale for customerId '$customerId' has no products.");
         }
 
+        $this->id = $id;
         $this->customerId = $customerId;
         $this->products = $products;
     }

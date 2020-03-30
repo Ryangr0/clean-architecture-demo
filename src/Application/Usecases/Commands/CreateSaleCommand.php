@@ -5,6 +5,7 @@ namespace CleanArchitecture\Application\Usecases\Commands;
 use CleanArchitecture\Application\Services\InventoryService;
 use CleanArchitecture\Application\Usecases\Repositories\SaleRepository;
 use CleanArchitecture\Domain\Models\Sale;
+use Ramsey\Uuid\Uuid;
 
 class CreateSaleCommand implements CreateSaleCommandInterface
 {
@@ -19,7 +20,7 @@ class CreateSaleCommand implements CreateSaleCommandInterface
 
     public function execute(string $customerId, array $products): void
     {
-        $sale = new Sale($customerId, $products);
+        $sale = new Sale(Uuid::uuid4(), $customerId, $products);
         $this->saleRepository->save($sale);
         $this->inventoryService->saleWasMade($sale);
     }

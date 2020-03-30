@@ -3,7 +3,9 @@
     "description": "The code for the demo for the Clean Architecture presentation",
     "type": "project",
     "require": {
-        "league/container": "^3.3"
+        "league/container": "^3.3",
+        "doctrine/orm": "^2.7",
+        "ramsey/uuid": "^4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.0"

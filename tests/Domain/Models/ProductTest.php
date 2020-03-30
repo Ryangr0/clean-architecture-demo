@@ -5,6 +5,7 @@ namespace CleanArchitecture\Tests\Domain\Models;
 use CleanArchitecture\Domain\Exceptions\NegativeProductPriceException;
 use CleanArchitecture\Domain\Models\Product;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 class ProductTest extends TestCase
 {
@@ -12,6 +13,6 @@ class ProductTest extends TestCase
     {
         $this->expectException(NegativeProductPriceException::class);
         $this->expectExceptionMessage("Product 'productName' has a negative price: '-900'");
-        new Product('productName', -900);
+        new Product(Uuid::uuid4(), 'productName', -900);
     }
 }

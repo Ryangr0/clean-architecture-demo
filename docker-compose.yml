@@ -12,3 +12,13 @@ services:
     tty: true
     env_file:
       - .env
+
+  database:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: "test"
+      MYSQL_DATABASE: "clean_architecture"
+    volumes:
+      - "./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+    ports:
+      - 3306:3306

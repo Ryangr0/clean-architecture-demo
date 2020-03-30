@@ -6,10 +6,11 @@ use CleanArchitecture\Domain\Exceptions\NegativeProductPriceException;
 
 class Product
 {
+    private string $id;
     private string $name;
     private int $amountInCents;
 
-    public function __construct(string $name, int $amountInCents)
+    public function __construct(string $id, string $name, int $amountInCents)
     {
         if ($amountInCents < 0) {
             throw new NegativeProductPriceException(
@@ -17,6 +18,7 @@ class Product
             );
         }
 
+        $this->id = $id;
         $this->name = $name;
         $this->amountInCents = $amountInCents;
     }
