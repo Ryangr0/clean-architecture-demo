@@ -14,5 +14,13 @@
             "name": "Ryan Grippeling",
             "email": "R.Grippeling@hotmail.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "CleanArchitecture\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": { "CleanArchitecture\\Tests\\": "tests/" }
+    }
 }

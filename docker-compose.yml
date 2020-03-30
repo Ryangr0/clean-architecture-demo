@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  app:
+    container_name: app
+    image: php:7.4-cli
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - ./vendor:/app/vendor:cached
+    ports:
+      - 80:80
+    tty: true
+    env_file:
+      - .env
