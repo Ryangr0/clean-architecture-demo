@@ -1,8 +1,6 @@
 <?php
 
-
 namespace CleanArchitecture\Application\Usecases\Commands;
-
 
 interface CreateSaleCommandInterface
 {
