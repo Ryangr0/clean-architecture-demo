@@ -37,7 +37,7 @@ class CreateSaleCommandTest extends TestCase
         $this->product->amountInCents()->willReturn(599);
     }
 
-    public function test_command_will_save_on_happy_flow()
+    public function test_command_will_save_to_repository()
     {
         $expectedSaleToBeSaved = new Sale($this->customerId, [$this->product->reveal()]);
         $this->saleRepository->save($expectedSaleToBeSaved)->shouldBeCalledOnce();
