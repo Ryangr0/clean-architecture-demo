@@ -1,25 +1,44 @@
 <?php
 
+use CleanArchitecture\Application\ServiceContainer;
+use CleanArchitecture\Application\Usecases\Repositories\SaleRepository;
+use CleanArchitecture\Domain\Models\Product;
 use CleanArchitecture\Domain\Models\Sale;
-use CleanArchitecture\Infrastructure\Persistence\Doctrine\Sale as DoctrineSale;
 use CleanArchitecture\Infrastructure\Persistence\Repositories\MysqlSaleRepository;
 use Doctrine\ORM\EntityManager;
+use Medoo\Medoo;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 class MysqlSaleRepositoryTest extends TestCase
 {
     public function test_sale_entity_is_persisted_with_the_correct_values()
     {
-        $sale = $this->prophesize(Sale::class);
-        $sale->id()->willReturn('id');
-        $sale->customerId()->willReturn('customerId');
-        $sale->subTotal()->willReturn(800);
+        $saleId = Uuid::uuid4();
+        $customerId = Uuid::uuid4();
+        $sale = new Sale(
+            $saleId,
+            $customerId,
+            [new Product(Uuid::uuid4(), 'productName', 500)]
+        );
 
-        $entityManager = $this->prophesize(EntityManager::class);
-        $entityManager->persist(DoctrineSale::fromSale($sale->reveal()))->shouldBeCalledOnce();
-        $entityManager->flush()->shouldBeCalledOnce();
+        /** @var SaleRepository $salesRepository */
+        $salesRepository = ServiceContainer::make(SaleRepository::class);
+        $salesRepository->save($sale);
 
-        $repository = new MysqlSaleRepository($entityManager->reveal());
-        $repository->save($sale->reveal());
+        $this->assertEquals(
+            [
+                [
+                    'id' => $saleId->toString(),
+                    'customer_id' => $customerId->toString(),
+                    'subtotal' => "500.00",
+                ]
+            ],
+            ServiceContainer::make(Medoo::class)->select(
+                'sales',
+                ['id', 'customer_id', 'subtotal'],
+                ['id' => $saleId->toString(), 'customer_id' => $customerId->toString()]
+            )
+        );
     }
 }

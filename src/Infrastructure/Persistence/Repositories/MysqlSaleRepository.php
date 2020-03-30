@@ -4,24 +4,30 @@ namespace CleanArchitecture\Infrastructure\Persistence\Repositories;
 
 use CleanArchitecture\Application\Usecases\Repositories\SaleRepository;
 use CleanArchitecture\Domain\Models\Sale;
-use CleanArchitecture\Infrastructure\Persistence\Doctrine\Sale as DoctrineSale;
 use Doctrine\ORM\EntityManager;
+use Medoo\Medoo;
 
 class MysqlSaleRepository implements SaleRepository
 {
     /**
-     * @var EntityManager
+     * @var Medoo
      */
-    private EntityManager $entityManager;
+    private Medoo $mysql;
 
-    public function __construct(EntityManager $entityManager)
+    public function __construct(Medoo $mysql)
     {
-        $this->entityManager = $entityManager;
+        $this->mysql = $mysql;
     }
 
     public function save(Sale $sale)
     {
-        $this->entityManager->persist(DoctrineSale::fromSale($sale));
-        $this->entityManager->flush();
+        $this->mysql->insert(
+            'sales',
+            [
+                'id' => $sale->id(),
+                'customer_id' => $sale->customerId(),
+                'subtotal' => $sale->subTotal(),
+            ]
+        );
     }
 }
