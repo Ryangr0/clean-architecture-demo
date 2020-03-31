@@ -2,8 +2,8 @@
 
 include 'vendor/autoload.php';
 
+use CleanArchitecture\Presentation\Controllers\IndexController;
 use Laminas\Diactoros\ResponseFactory;
-use Psr\Http\Message\ServerRequestInterface;
 
 $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals(
     $_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
@@ -15,12 +15,7 @@ $strategy = new League\Route\Strategy\JsonStrategy($responseFactory);
 $router = (new League\Route\Router)->setStrategy($strategy);
 
 // map a route
-$router->map('GET', '/', function (ServerRequestInterface $request): array {
-    return [
-        'title' => 'My New Simple API',
-        'version' => 1,
-    ];
-});
+$router->map('GET', '/', IndexController::class);
 
 $response = $router->dispatch($request);
 
