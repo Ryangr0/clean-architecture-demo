@@ -1,5 +1,6 @@
 <?php
 
+namespace CleanArchitecture\Tests\Unit\Application\Usecases\Commands;
 
 use CleanArchitecture\Application\Services\InventoryService;
 use CleanArchitecture\Application\Usecases\Commands\CreateSaleCommand;

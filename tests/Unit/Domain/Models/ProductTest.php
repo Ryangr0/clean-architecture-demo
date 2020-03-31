@@ -1,6 +1,6 @@
 <?php
 
-namespace CleanArchitecture\Tests\Domain\Models;
+namespace CleanArchitecture\Tests\Unit\Domain\Models;
 
 use CleanArchitecture\Domain\Exceptions\NegativeProductPriceException;
 use CleanArchitecture\Domain\Models\Product;

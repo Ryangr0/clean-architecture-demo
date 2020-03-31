@@ -1,11 +1,11 @@
 <?php
 
+namespace CleanArchitecture\Tests\Integration\Infrastructure\Persistence;
+
 use CleanArchitecture\Application\ServiceContainer;
 use CleanArchitecture\Application\Usecases\Repositories\SaleRepository;
 use CleanArchitecture\Domain\Models\Product;
 use CleanArchitecture\Domain\Models\Sale;
-use CleanArchitecture\Infrastructure\Persistence\Repositories\MysqlSaleRepository;
-use Doctrine\ORM\EntityManager;
 use Medoo\Medoo;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
